@@ -20,14 +20,11 @@ const buildJobsUrl = (zip) => {
 };
 
 export const fetchJobs = (region, callback) => async (dispatch) => {
-  const url = buildJobsUrl("07444");
-  console.log(url);
+  console.log(buildJobsUrl("07444"));
   try {
     let zip = await reverseGeocode(region);
     const url = buildJobsUrl(zip);
-    let { data } = await axios.get(
-      "http://api.indeed.com/ads/apisearch?publisher=4201738803816157%22&format=json&v=2&latlong=1&radius=10&q=react%20developer&l=07444"
-    );
+    let { data } = await axios.get(url);
     dispatch({ type: FETCH_JOBS, payload: data });
     callback();
   } catch (e) {
